@@ -1,0 +1,118 @@
+
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(new MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(home: HomePage(), debugShowCheckedModeBanner: false);
+  }
+}
+
+class HomePage extends StatelessWidget {
+  final _foto1 = 'https://2.bp.blogspot.com/-UIg7Avdt5gg/XMlagBrHQBI/AAAAAAAAF4A/WFS8uCI0kXAX23v5slx1dMkPlWCcAV4EQCKgBGAs/w1920-h1080-c/battle-academia-jayce-splash-art-lol-uhdpaper.com-4K-74.jpg';
+  final _foto2 = 'https://steamuserimages-a.akamaihd.net/ugc/957483070093055113/DABA77BF74CE845A1F1DA8A3A1ABA5FA54479C9A/';
+  
+  final txtStyle1 = TextStyle(color: Colors.yellow, fontSize: 30.0);
+  final txtStyle2 = TextStyle(color: Colors.yellow, fontSize: 10.0);
+  final txtStyle3 = TextStyle(color: Colors.yellow, fontSize: 20.0);
+  final _titulo = TextStyle(fontSize: 20.0, color: Colors.yellow, fontWeight: FontWeight.bold);
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        body: PageView(scrollDirection: Axis.vertical, children: <Widget>[
+      _pagina(
+          url: _foto1,
+          t1: 'Inicio de Sesión',
+          t2: 'Ingresa los datos correspondientes',
+          icon: Icons.arrow_drop_down_sharp),
+      _pagina2(
+          url: _foto2,
+          t1: 'UTP Puebla',
+          t2: '2021',
+          icon: Icons.keyboard_arrow_up),      
+    ]));
+  }
+
+  Widget _pagina({String url, String t1, String t2, IconData icon}) {
+    return Stack(children: <Widget>[
+      _fondo(imagen: url),
+      _contenido1(t1: t1, t2: t2, icon: icon)
+    ]);
+  }
+
+  Widget _fondo({String imagen}) {
+    return Container(
+      width: double.infinity,
+      height: double.infinity,
+      child: Image(image: NetworkImage(imagen), fit: BoxFit.cover),
+    );
+  }
+
+  Widget _contenido1({String t1, String t2, IconData icon}) {
+    return SafeArea(
+        child: Column(children: <Widget>[
+      SizedBox(height: 190.0),
+      Text(t1, style: txtStyle1),
+      Text(t2, style: txtStyle2),  
+          Divider(),
+      TextField(style: txtStyle3,
+           textAlign: TextAlign.center,
+      decoration: InputDecoration(        
+        hintText: 'Correo', 
+        hintStyle: TextStyle(color: Colors.yellow))),  
+          Divider(),
+          TextField(style: txtStyle3,
+                    textAlign: TextAlign.center,
+      decoration: InputDecoration(
+        hintText: 'Contraseña', 
+        hintStyle: TextStyle(color: Colors.yellow))), 
+      Expanded(child: Container()),          
+      Icon(icon, size: 70.0, color: Colors.yellowAccent)
+    ]));
+  }
+   
+    Widget _pagina2({String url, String t1, String t2, IconData icon}) {
+    return Stack(children: <Widget>[
+      _fondo(imagen: url),
+      _contenido2(t1: t1, t2: t2, icon: icon)
+    ]);
+  }
+  
+  Widget _contenido2({String t1, String t2, IconData icon}) {
+    return SafeArea(
+        child: Column(children: <Widget>[
+          Icon(icon, size: 50.0, color: Colors.yellowAccent),
+          _renglon(titulo: 'League of Legends',                     
+                 colorIcon: Colors.yellow),          
+          _parrafo(
+          texto: "League of Legends (también conocido por sus siglas LoL) es un videojuego del género multijugador de arena de batalla en línea (MOBA) y deporte electrónico el cual fue desarrollado por Riot Games para Microsoft Windows y OS X y para consolas digitales. En un principio los servidores estaban alojados en la empresa GOA y fue vendida a la empresa china Tencent Holdings Limited. El juego fue diseñado para el sistema operativo Microsoft Windows y lanzaron una beta para OS X dejando al poco tiempo el proyecto de lado.1​ Esta beta ha sido mejorada por parte de usuarios del juego, haciendo posible jugar a una versión actualizada de League of Legends"),
+          Divider(height:98),
+          _parrafo(
+          texto: "League of Legends tiene lugar en el mundo ficticio de Runaterra. Donde los personajes mejor conocidos como campeones son una colección de héroes y villanos que tienen una variedad de historias, a menudo relacionadas con las luchas políticas de los diversos países del continente principal de Valoran. Además, algunos campeones son extraplanares y provienen de mundos diferentes a Runaterra, pero están de visita para sus propios fines. Estos campeones a veces chocan entre sí, lo cual se ve reflejado en la jugabilidad de League of Legends."),                
+           
+    ]));
+  }   
+  
+   Widget _renglon({String titulo, Color colorIcon})    {
+    return Container(
+        padding: EdgeInsets.symmetric(horizontal: 50.0, vertical: 1.0),
+        child: Row(children: <Widget>[          
+          Icon(Icons.star, color: colorIcon, size: 22),
+          Expanded(            
+              child: Text(titulo, style: _titulo) )
+        ]));
+  }
+  
+  Widget _parrafo({String texto}) {
+    return Container(
+        padding: EdgeInsets.symmetric(horizontal: 10.0),
+        child: Text(texto, textAlign: TextAlign.justify, style:   TextStyle(fontSize: 15.0, color: Colors.greenAccent)));
+  } 
+  
+}

@@ -1,0 +1,93 @@
+
+import 'package:flutter/material.dart';
+
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget {
+  
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,      
+      home: Scaffold(
+        body: SliderPage(),
+      ),
+    );
+  }
+}
+
+class SliderPage extends StatefulWidget {
+  @override
+  _SliderPageState createState() => _SliderPageState();
+}
+
+class _SliderPageState extends State<SliderPage> {
+  int brillo=0;
+  bool _bloquearCheck = false;
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(      
+        appBar: AppBar(title: Text("Control de brillo"),
+                      backgroundColor: Colors.blue[900-brillo]),
+      backgroundColor: Colors.grey[900],      
+      body: Container(
+        padding: EdgeInsets.only(top: 50.0),
+        color: Colors.grey[900-brillo],
+        child: ListView(
+          children: <Widget>[   
+            ListTile(
+          leading: Icon(Icons.pets, color: Colors.blue[900-brillo]),
+          title: Text("Perro")),
+        Divider(),
+        ListTile(
+          leading: Icon( Icons.pets, color: Colors.red[900-brillo]),
+          title: Text("Gato")),
+          Divider(),
+          ListTile(
+          leading: Icon(Icons.pets, color: Colors.brown[900-brillo]),
+          title: Text("Oso")),
+        Divider(),
+        ListTile(
+          leading: Icon( Icons.pets, color: Colors.orange[900-brillo]),
+          title: Text("Tigre")),
+            Divider(height: 100),
+            _crearSlider(),
+            _checkBox(),             
+          ],
+        ),
+      ),
+    );
+  }
+   Widget _crearSlider() {
+    return Slider.adaptive(
+      value: brillo.toDouble(),
+      onChanged: ( _bloquearCheck ) ? null : ( newBrillo){
+        setState((){
+          brillo=newBrillo.toInt();          
+        });
+        },      
+      min:0,
+      max:800,
+      divisions: 8,
+      label: "brillo: $brillo",
+      activeColor: Colors.red[900],
+      inactiveColor: Colors.red[900]
+    );     
+     
+    
+  }
+
+  Widget _checkBox() {
+    return CheckboxListTile(
+      title: Text('Bloquear cambio'),
+      value: _bloquearCheck,
+      onChanged: (valor){ 
+        setState(() {
+          _bloquearCheck = valor;
+        });
+      },
+    );
+  }
+  
+   
+}
